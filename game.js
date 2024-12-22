@@ -76,18 +76,18 @@ platformImages.addEventListener("load", () => {
 let groundPlatform = document.getElementById("winter-ground");
 groundPlatform.addEventListener("load", () => {
   for (let i = 0; i < 1500; i++) {
-    console.log(i % groundPlatform.width*3);
-    if (i % groundPlatform.width*3 === 0) {
+    console.log((i % groundPlatform.width) * 3);
+    if ((i % groundPlatform.width) * 3 === 0) {
       platformCtx.drawImage(
         groundPlatform,
         i,
         700,
-        groundPlatform.width*3,
-        groundPlatform.height*3
+        groundPlatform.width * 3,
+        groundPlatform.height * 3
       );
     }
-  };
-})
+  }
+});
 
 /**
  * Game initialization
@@ -112,6 +112,26 @@ let gameRunning;
 let time;
 let lastTime;
 let keys = {};
+let HP = 5;
+
+const hpCanvas = document.getElementById("hpCanvas");
+const hpCtx = hpCanvas.getContext("2d");
+const redHeart = document.getElementById("red-heart");
+const greyHeart = document.getElementById("grey-heart");
+redHeart.addEventListener("load", () => {
+  for (let i = 0; i < HP; i++) {
+    hpCtx.drawImage(redHeart, 1230 + i * 50, 20, 40, 40);
+  }
+});
+
+function displayHP() {
+  for (let i = 0; i < HP; i++) {
+    hpCtx.drawImage(redHeart, 1230 + i * 50, 20, 40, 40);
+  }
+  for (let i = HP; i < 5; i++) {
+    hpCtx.drawImage(greyHeart, 1230 + i * 50, 20, 40, 40);
+  }
+}
 
 const player = {
   x: 120,
@@ -164,6 +184,8 @@ window.addEventListener("keyup", (e) => {
  */
 
 function update() {
+  updateIcicles();
+
   if (keys["ArrowRight"]) {
     player.dx = PLAYER_SPEED;
     player.facingLeft = false;
@@ -233,11 +255,75 @@ function update() {
 }
 
 /**
+ * Icicles
+ */
+
+const icicleImage = document.getElementById("icicle");
+
+const ICICLE_WIDTH = 32;
+const ICICLE_HEIGHT = 64;
+const ICICLE_SPEED = 1;
+
+const icicles = [];
+
+let hurt = false;
+
+function generateIcicle() {
+  if (icicles.length > 0) return;
+
+  const x = Math.random() * (canvas.width - ICICLE_WIDTH);
+  icicles.push({ x, y: -ICICLE_HEIGHT });
+}
+
+function updateIcicles() {
+  for (let i = icicles.length - 1; i >= 0; i--) {
+    const icicle = icicles[i];
+    icicle.y += ICICLE_SPEED;
+
+    if (icicle.y > canvas.height) {
+      icicles.splice(i, 1);
+    }
+
+    if (
+      player.x < icicle.x + ICICLE_WIDTH &&
+      player.x + player.width > icicle.x &&
+      player.y + player.height / 2 == icicle.y + ICICLE_HEIGHT
+    ) {
+      HP = Math.max(HP - 1, 0);
+      hurt = true;
+      displayHP();
+      icicles.splice(i, 1);
+    }
+  }
+}
+
+function drawIcicles() {
+  for (const icicle of icicles) {
+    ctx.drawImage(icicleImage, icicle.x, icicle.y, ICICLE_WIDTH, ICICLE_HEIGHT);
+  }
+}
+
+if (Math.random() < 0.01) {
+  generateIcicle();
+}
+
+function drawIcicles() {
+  for (const icicle of icicles) {
+    ctx.drawImage(icicleImage, icicle.x, icicle.y, ICICLE_WIDTH, ICICLE_HEIGHT);
+  }
+}
+
+const hurtCanvas = document.getElementById("hurt");
+const hurtCtx = hurtCanvas.getContext("2d");
+
+/**
  * Drawing
  */
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  drawIcicles();
 
   let character = player.dx == 0 ? characterIdle : characterWalking;
   let isFacingLeft = player.dx < 0 || (player.dx === 0 && player.facingLeft);
@@ -277,6 +363,7 @@ function draw() {
  */
 
 function displayMessage(text, color) {
+  console.log("display");
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
 
@@ -316,8 +403,8 @@ function updateStats() {
   }
 
   if (time >= TIME_LIMIT) {
-    gameRunning = false;
-    displayMessage("You Lost!", "red");
+    HP = 0;
+    displayHP();
   }
 }
 
@@ -325,16 +412,50 @@ let lastFrameTime = 0;
 const FRAME_DELAY = 100;
 let FRAME = 0;
 
+let lastIcicle = 0;
+const ICICLE_DELAY = 2000;
+
+let elapsed = 0;
+const flashDuration = 70;
+
 function gameLoop(timestamp) {
   if (!gameRunning) return;
+
+  if (HP === 0) {
+    gameRunning = false;
+    hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
+    displayMessage("You Lost!", "red");
+    return;
+  }
+
   update();
   draw();
   updateStats();
   checkWinCondition();
 
+  if (timestamp - lastIcicle > ICICLE_DELAY) {
+    generateIcicle();
+    lastIcicle = FRAME;
+  }
+
   if (timestamp - lastFrameTime > FRAME_DELAY) {
     FRAME = (FRAME + 1) % 4;
     lastFrameTime = timestamp;
+  }
+
+  if (hurt) {
+    if (elapsed == 0) {
+      elapsed = timestamp;
+    }
+    if (timestamp - elapsed > flashDuration) {
+      hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
+      elapsed = 0;
+      hurt = false;
+    } else {
+      hurt = true;
+      hurtCtx.fillStyle = "rgba(255, 0, 0, 0.05)";
+      hurtCtx.fillRect(0, 0, canvas.width, canvas.height);
+    }
   }
 
   requestAnimationFrame(gameLoop);
@@ -359,6 +480,8 @@ function restartGame() {
     updateStats();
     loadingOverlay.style.display = "none";
     cancelAnimationFrame(gameLoop);
+    gameRunning = true;
+    HP = 5;
     requestAnimationFrame(gameLoop);
     gameLoop();
   });
