@@ -105,6 +105,7 @@ const JUMP_STRENGTH = -8;
 const PLAYER_SPEED = 2;
 const FRAME_WIDTH = 48;
 const FRAME_HEIGHT = 48;
+const TIME_LIMIT = 30;
 
 let SCORE;
 let gameRunning;
@@ -275,23 +276,23 @@ function draw() {
  * Winning
  */
 
-function displayWinMessage() {
+function displayMessage(text, color) {
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.font = "100px Arial";
-  ctx.fillStyle = "white";
+  ctx.font = "7rem Public Pixel";
+  ctx.fillStyle = color;
   ctx.textAlign = "center";
 
-  ctx.fillText("You Won!", canvas.width / 2, canvas.height / 2);
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 }
 
 function checkWinCondition() {
   if (actualItems.length === 0) {
     gameRunning = false;
-    displayWinMessage();
+    displayMessage("You Won!", "white");
   }
 }
 
@@ -306,8 +307,18 @@ function updateStats() {
     lastTime = currentTime;
   }
 
-  document.getElementById("scoreDisplay").innerText = `Score: ${SCORE}`;
-  document.getElementById("timeDisplay").innerText = `Time: ${time}`;
+  document.getElementById("scoreDisplay").innerText = `🎁 Score: ${SCORE}`;
+  let timeLimit = document.getElementById("timeDisplay");
+  timeLimit.innerText = `⏱️ Time: ${TIME_LIMIT - time}`;
+
+  if (TIME_LIMIT - time < 10) {
+    timeLimit.style = "color: red";
+  }
+
+  if (time >= TIME_LIMIT) {
+    gameRunning = false;
+    displayMessage("You Lost!", "red");
+  }
 }
 
 let lastFrameTime = 0;
