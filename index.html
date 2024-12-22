@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cat Christmas Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div
+      id="loadingOverlay"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 9999;
+      "
+    >
+      <p
+        style="
+          color: white;
+          font-size: 2rem;
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >
+        Loading...
+      </p>
+    </div>
+    <div class="header">
+      <h1>Cat Christmas Game 🎄🐈</h1>
+      <button id="restartButton" class="restart-button">🔄 Restart</button>
+    </div>
+    <div class="game-container">
+      <div style="display: none">
+        <img id="background" src="images/background-winter.png" />
+        <img id="platforms" src="images/platforms-winter.png" />
+        <img id="character-idle" src="images/cat-idle.png" />
+        <img id="character-walking" src="images/cat-walk.png" />
+        <img class="items" src="images/items/ornament1.png" />
+        <img class="items" src="images/items/ornament2.png" />
+        <img class="items" src="images/items/present1.png" />
+        <img class="items" src="images/items/present2.png" />
+        <img class="items" src="images/items/candle.png" />
+      </div>
+      <div class="canvas-wrapper">
+        <canvas id="backgroundCanvas" width="1500" height="750"></canvas>
+        <canvas id="platformCanvas" width="1500" height="750"></canvas>
+        <canvas id="itemsCanvas" width="1500" height="750"></canvas>
+        <canvas id="gameCanvas" width="1500" height="750"></canvas>
+        <div class="overlay">
+          <h4 id="scoreDisplay">🎁 Score: 0</h4>
+          <h4 id="timeDisplay">⏱️ Time: 0</h4>
+        </div>
+      </div>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>
