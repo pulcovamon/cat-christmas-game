@@ -26,22 +26,6 @@ const platforms = [
   { x: 1025, y: 100, width: 32, height: 9, tileX: 0, tileY: 7 },
 ];
 
-platformImages.addEventListener("load", () => {
-  for (const platform of platforms) {
-    platformCtx.drawImage(
-      platformImages,
-      platform.tileX,
-      platform.tileY,
-      platform.width,
-      platform.height,
-      platform.x,
-      platform.y,
-      platform.width * 3,
-      platform.height * 3
-    );
-  }
-});
-
 const itemsCanvas = document.getElementById("itemsCanvas");
 const itemsCtx = itemsCanvas.getContext("2d");
 
@@ -73,6 +57,38 @@ function rerenderItems() {
   }
 }
 
+platformImages.addEventListener("load", () => {
+  for (const platform of platforms) {
+    platformCtx.drawImage(
+      platformImages,
+      platform.tileX,
+      platform.tileY,
+      platform.width,
+      platform.height,
+      platform.x,
+      platform.y,
+      platform.width * 3,
+      platform.height * 3
+    );
+  }
+});
+
+let groundPlatform = document.getElementById("winter-ground");
+groundPlatform.addEventListener("load", () => {
+  for (let i = 0; i < 1500; i++) {
+    console.log(i % groundPlatform.width*3);
+    if (i % groundPlatform.width*3 === 0) {
+      platformCtx.drawImage(
+        groundPlatform,
+        i,
+        700,
+        groundPlatform.width*3,
+        groundPlatform.height*3
+      );
+    }
+  };
+})
+
 /**
  * Game initialization
  */
@@ -83,7 +99,7 @@ const characterIdle = document.getElementById("character-idle");
 const characterWalking = document.getElementById("character-walking");
 
 const SCALE = 3;
-const GROUND = 650;
+const GROUND = 700;
 const GRAVITY = 0.1;
 const JUMP_STRENGTH = -8;
 const PLAYER_SPEED = 2;
