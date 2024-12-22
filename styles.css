@@ -66,6 +66,7 @@ canvas {
     top: 0;
     left: 0;
     display: block;
+    border: solid black 5px;
 }
 
 .overlay {
@@ -92,4 +93,3 @@ body {
     background-size: auto;                 /* Zachování původní velikosti obrázku */
     background-color: #001f3f;             /* Základní barva pozadí */
 }
-

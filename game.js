@@ -28,6 +28,8 @@ const platforms = [
 
 const itemsCanvas = document.getElementById("itemsCanvas");
 const itemsCtx = itemsCanvas.getContext("2d");
+itemsCtx.shadowBlur = 20;
+itemsCtx.shadowColor = "yellow";
 
 const items = document.getElementsByClassName("items");
 
