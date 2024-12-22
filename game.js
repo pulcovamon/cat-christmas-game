@@ -153,12 +153,14 @@ function setInitialState() {
   time = 0;
   lastTime = 0;
   keys = {};
+  HP = 5;
 
   player.x = 120;
   player.y = GROUND;
   player.dx = 0;
   player.dy = 0;
   player.onGround = true;
+  player.isFacingLeft = false;
 }
 
 setInitialState();
@@ -374,8 +376,10 @@ function displayMessage(text, color) {
   ctx.font = "7rem Public Pixel";
   ctx.fillStyle = color;
   ctx.textAlign = "center";
-
   ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 5;
+  ctx.strokeText(text, canvas.width / 2, canvas.height / 2);
 }
 
 function checkWinCondition() {
@@ -400,7 +404,9 @@ function updateStats() {
   let timeLimit = document.getElementById("timeDisplay");
   timeLimit.innerText = `⏱️ Time: ${TIME_LIMIT - time}`;
 
-  if (TIME_LIMIT - time < 10) {
+  if (TIME_LIMIT - time > 5) {
+    timeLimit.style = "color: white";
+  } else {
     timeLimit.style = "color: red";
   }
 
@@ -441,7 +447,8 @@ function gameLoop(timestamp) {
   }
 
   if (timestamp - lastFrameTime > FRAME_DELAY) {
-    FRAME = (FRAME + 1) % 4;
+    let maxFrame = player.dx === 0 ? 4 : 6;
+    FRAME = (FRAME + 1) % maxFrame;
     lastFrameTime = timestamp;
   }
 
@@ -475,15 +482,14 @@ function restartGame() {
   gameRunning = false;
   const loadingOverlay = document.getElementById("loadingOverlay");
   loadingOverlay.style.display = "block";
+  cancelAnimationFrame(gameLoop);
   delay(1000).then(() => {
     document.getElementById("restartButton").blur();
     setInitialState();
     rerenderItems();
     updateStats();
     loadingOverlay.style.display = "none";
-    cancelAnimationFrame(gameLoop);
-    gameRunning = true;
-    HP = 5;
+    displayHP();
     requestAnimationFrame(gameLoop);
     gameLoop();
   });
