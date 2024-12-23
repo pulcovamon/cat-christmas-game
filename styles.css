@@ -213,8 +213,8 @@ canvas {
     }
 
     .bottom-button {
-        font-size: 2.5rem;
-        padding: 15px;
+        font-size: 2rem;
+        padding: 10px;
         color: black;
     }
 
@@ -250,6 +250,7 @@ canvas {
 
     #play-stop-container {
         display: block;
+        justify-items: center;
     }
 
     .control-buttons {
