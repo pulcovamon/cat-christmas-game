@@ -98,7 +98,7 @@ canvas {
     color: #fff;
 }
 
-#play-stop-container {
+.butons-container {
     margin-top: 20px;
     bottom: 10px;
 }
@@ -277,8 +277,8 @@ canvas {
         display: block;
     }
 
-    #play-stop-container {
-        display: block;
+    .butons-container {
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
