@@ -159,6 +159,17 @@ function initializePlatforms() {
       platform.height * 3
     );
   }
+  for (let i = 0; i < 1500; i++) {
+    if ((i % groundPlatform.width) * 3 === 0) {
+      platformCtx.drawImage(
+        groundPlatform,
+        i,
+        700,
+        groundPlatform.width * 3,
+        groundPlatform.height * 3
+      );
+    }
+  }
 }
 
 function initializeItems() {
