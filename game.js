@@ -14,7 +14,7 @@ const platformCanvas = document.getElementById("platformCanvas");
 const platformCtx = platformCanvas.getContext("2d");
 const platformImages = document.getElementById("platforms");
 
-const platforms = [
+let platforms = [
   { x: 100, y: 325, width: 32, height: 9, tileX: 0, tileY: 7 },
   { x: 325, y: 450, width: 32, height: 16, tileX: 48, tileY: 192 },
   { x: 325, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
@@ -23,7 +23,19 @@ const platforms = [
   { x: 500, y: 150, width: 48, height: 32, tileX: 48, tileY: 128 },
   { x: 800, y: 350, width: 32, height: 16, tileX: 48, tileY: 112 },
   { x: 1225, y: 225, width: 32, height: 16, tileX: 0, tileY: 192 },
-  { x: 1025, y: 100, width: 32, height: 9, tileX: 0, tileY: 7 },
+  { x: 1050, y: 100, width: 32, height: 9, tileX: 0, tileY: 7 },
+];
+
+platforms = [
+  { x: 100, y: 325, width: 32, height: 9, tileX: 0, tileY: 7 },
+  { x: 325, y: 450, width: 32, height: 16, tileX: 48, tileY: 192 },
+  { x: 325, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
+  { x: 650, y: 450, width: 32, height: 9, tileX: 48, tileY: 7 },
+  { x: 1000, y: 325, width: 48, height: 48, tileX: 96, tileY: 272 },
+  { x: 500, y: 150, width: 48, height: 32, tileX: 48, tileY: 128 },
+  { x: 800, y: 350, width: 32, height: 16, tileX: 48, tileY: 112 },
+  { x: 1225, y: 225, width: 32, height: 16, tileX: 0, tileY: 192 },
+  { x: 1050, y: 100, width: 32, height: 9, tileX: 0, tileY: 7 },
 ];
 
 const itemsCanvas = document.getElementById("itemsCanvas");
@@ -384,7 +396,7 @@ function displayMessage(text, color) {
 function checkWinCondition() {
   if (actualItems.length === 0) {
     gameRunning = false;
-    displayMessage("You Won!", "white");
+    displayMessage("You Won!🎉", "white");
   }
 }
 
@@ -431,7 +443,7 @@ function gameLoop(timestamp) {
   if (HP === 0) {
     gameRunning = false;
     hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
-    displayMessage("You Lost!", "red");
+    displayMessage("You Lost!💀", "red");
     return;
   }
 
