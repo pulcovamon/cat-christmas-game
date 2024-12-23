@@ -16,28 +16,48 @@ const platformCanvas = document.getElementById("platformCanvas");
 const platformCtx = platformCanvas.getContext("2d");
 const platformImages = document.getElementById("platforms");
 
-let platforms = [
-  { x: 100, y: 325, width: 32, height: 9, tileX: 0, tileY: 7 },
-  { x: 325, y: 450, width: 32, height: 16, tileX: 48, tileY: 192 },
-  { x: 325, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
-  { x: 650, y: 450, width: 32, height: 9, tileX: 48, tileY: 7 },
-  { x: 1000, y: 325, width: 48, height: 48, tileX: 96, tileY: 272 },
-  { x: 500, y: 150, width: 48, height: 32, tileX: 48, tileY: 128 },
-  { x: 800, y: 350, width: 32, height: 16, tileX: 48, tileY: 112 },
-  { x: 1225, y: 225, width: 32, height: 16, tileX: 0, tileY: 192 },
-  { x: 1050, y: 100, width: 32, height: 9, tileX: 0, tileY: 7 },
-];
-
-platforms = [
-  { x: 100, y: 325, width: 32, height: 9, tileX: 0, tileY: 7 },
-  { x: 325, y: 450, width: 32, height: 16, tileX: 48, tileY: 192 },
-  { x: 325, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
-  { x: 650, y: 450, width: 32, height: 9, tileX: 48, tileY: 7 },
-  { x: 1000, y: 325, width: 48, height: 48, tileX: 96, tileY: 272 },
-  { x: 500, y: 150, width: 48, height: 32, tileX: 48, tileY: 128 },
-  { x: 800, y: 350, width: 32, height: 16, tileX: 48, tileY: 112 },
-  { x: 1225, y: 225, width: 32, height: 16, tileX: 0, tileY: 192 },
-  { x: 1050, y: 100, width: 32, height: 9, tileX: 0, tileY: 7 },
+const platformSets = [
+  [
+    { x: 50, y: 325, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 200, y: 500, width: 32, height: 16, tileX: 48, tileY: 192 },
+    { x: 325, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 650, y: 450, width: 32, height: 9, tileX: 48, tileY: 7 },
+    { x: 1200, y: 325, width: 48, height: 48, tileX: 96, tileY: 272 },
+    { x: 500, y: 150, width: 48, height: 32, tileX: 48, tileY: 128 },
+    { x: 800, y: 350, width: 32, height: 16, tileX: 48, tileY: 112 },
+    { x: 1400, y: 225, width: 32, height: 16, tileX: 0, tileY: 192 },
+    { x: 1050, y: 120, width: 48, height: 9, tileX: 0, tileY: 7 },
+    { x: 1000, y: 520, width: 48, height: 16, tileX: 0, tileY: 112 },
+    { x: 80, y: 433, width: 48, height: 9, tileX: 0, tileY: 256 },
+  ],
+  [
+    { x: 885, y: 286, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 1168, y: 364, width: 32, height: 16, tileX: 48, tileY: 192 },
+    { x: 500, y: 150, width: 48, height: 9, tileX: 0, tileY: 7 },
+    { x: 1300, y: 221, width: 48, height: 9, tileX: 48, tileY: 7 },
+    { x: 350 , y: 500, width: 48, height: 48, tileX: 96, tileY: 272 },
+    { x: 618, y: 383, width: 48, height: 32, tileX: 48, tileY: 208 },
+    { x: 995, y: 476, width: 32, height: 16, tileX: 48, tileY: 112 },
+    { x: 300, y: 179, width: 32, height: 16, tileX: 0, tileY: 192 },
+    { x: 80, y: 433, width: 48, height: 9, tileX: 0, tileY: 256 },
+    { x: 1000, y: 120, width: 48, height: 9, tileX: 96, tileY: 256 },
+    { x: 1300, y: 520, width: 32, height: 16, tileX: 0, tileY: 112 },
+    { x: 50 , y: 250, width: 32, height: 16, tileX: 144, tileY: 272 }
+  ],
+  [
+    { x: 5, y: 199, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 597, y: 450, width: 48, height: 16, tileX: 48, tileY: 192 },
+    { x: 249, y: 259, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 820, y: 357, width: 32, height: 9, tileX: 48, tileY: 7 },
+    { x: 1350, y: 138, width: 48, height: 48, tileX: 96, tileY: 272 },
+    { x: 1167, y: 250, width: 48, height: 32, tileX: 48, tileY: 128 },
+    { x: 132, y: 388, width: 32, height: 16, tileX: 48, tileY: 112 },
+    { x: 18, y: 510, width: 32, height: 16, tileX: 0, tileY: 192 },
+    { x: 915, y: 241, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 450, y: 200, width: 48, height: 32, tileX: 48, tileY: 288 },
+    { x: 1100, y: 520, width: 80, height: 9, tileX: 0, tileY: 256 },
+    { x: 400, y: 400, width: 32, height: 32, tileX: 48, tileY: 128 }
+  ]  
 ];
 
 const itemsCanvas = document.getElementById("itemsCanvas");
@@ -46,32 +66,6 @@ itemsCtx.shadowBlur = 20;
 itemsCtx.shadowColor = "yellow";
 
 const items = document.getElementsByClassName("items");
-
-function getRandomItem() {
-  let index = Math.floor(Math.random() * items.length);
-  return items[index];
-}
-
-let actualItems = [];
-
-function initializeItems() {
-  actualItems = [];
-  for (const platform of platforms) {
-    let item = getRandomItem();
-    actualItems.push({
-      img: item,
-      x: platform.x + (platform.width * 3) / 2 - 24,
-      y: platform.y - 60,
-    });
-  }
-}
-
-function rerenderItems() {
-  itemsCtx.clearRect(0, 0, itemsCanvas.width, itemsCanvas.height);
-  for (let item of actualItems) {
-    itemsCtx.drawImage(item.img, item.x, item.y, 48, 48);
-  }
-}
 
 platformImages.addEventListener("load", () => {
   for (const platform of platforms) {
@@ -140,6 +134,52 @@ redHeart.addEventListener("load", () => {
   }
 });
 
+function getRandomItem() {
+  let index = Math.floor(Math.random() * items.length);
+  return items[index];
+}
+
+let actualItems = [];
+let platforms;
+
+function initializePlatforms() {
+  platformCtx.clearRect(0, 0, platformCanvas.width, platformCanvas.height);
+  let index = Math.floor(Math.random() * platformSets.length);
+  platforms = platformSets[index];
+  for (const platform of platforms) {
+    platformCtx.drawImage(
+      platformImages,
+      platform.tileX,
+      platform.tileY,
+      platform.width,
+      platform.height,
+      platform.x,
+      platform.y,
+      platform.width * 3,
+      platform.height * 3
+    );
+  }
+}
+
+function initializeItems() {
+  actualItems = [];
+  for (const platform of platforms) {
+    let item = getRandomItem();
+    actualItems.push({
+      img: item,
+      x: platform.x + (platform.width * 3) / 2 - 24,
+      y: platform.y - 60,
+    });
+  }
+}
+
+function rerenderItems() {
+  itemsCtx.clearRect(0, 0, itemsCanvas.width, itemsCanvas.height);
+  for (let item of actualItems) {
+    itemsCtx.drawImage(item.img, item.x, item.y, 48, 48);
+  }
+}
+
 function displayHP() {
   for (let i = 0; i < HP; i++) {
     hpCtx.drawImage(redHeart, 1230 + i * 50, 20, 40, 40);
@@ -160,6 +200,7 @@ const player = {
 };
 
 function setInitialState() {
+  initializePlatforms();
   initializeItems();
 
   SCORE = 0;
