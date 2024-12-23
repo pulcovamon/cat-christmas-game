@@ -120,44 +120,6 @@ canvas {
     background-color: #d36d00;
 }
 
-/* Media queries for small screens */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 20px;
-    }
-
-    .header h1 {
-        font-size: 1.5rem;
-    }
-
-    .restart-button {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-    }
-
-    .game-container {
-        flex-direction: column;
-        margin-top: 5px;
-    }
-
-    .canvas-wrapper {
-        width: 100%;
-        height: auto;
-    }
-
-    .overlay {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-
-    .bottom-button {
-        font-size: 1rem;
-        padding: 8px;
-    }
-}
-
 .right-header {
     display: flex;
     flex-direction: row;
@@ -218,19 +180,61 @@ canvas {
   font-size: 1.2rem;
 }
 
-@media (max-width: 600px) {
-  #overlay {
-    position: fixed;
-    top: auto;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    flex-direction: column;
-    gap: 10px;
-  }
+/* For mobile screens */
+@media (max-width: 1000px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
 
-  #overlay h4 {
-    font-size: 1rem;
-  }
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .restart-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .game-container {
+        flex-direction: column;
+        margin-top: 5px;
+    }
+
+    .canvas-wrapper {
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .bottom-button {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    #overlay {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #overlay h4 {
+        font-size: 1rem;
+    }
+
+    .prevent-select {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+    }
 }
