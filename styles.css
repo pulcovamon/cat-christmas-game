@@ -225,6 +225,7 @@ canvas {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    width: 70%;
     flex-direction: column;
     gap: 10px;
   }
