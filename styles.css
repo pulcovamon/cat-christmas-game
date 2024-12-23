@@ -270,18 +270,18 @@ canvas {
         text-align: center;
     }
 
-    #play-stop-container {
-        display: block;
-        flex-direction: column;
-        align-items: center;
-    }
-
     #play-stop-button-pc {
         display: none;
     }
 
     #play-stop-button-phone {
         display: block;
+    }
+
+    #play-stop-container {
+        display: block;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
