@@ -198,6 +198,7 @@ canvas {
 /* For mobile screens */
 @media (max-width: 750px) {
     .header {
+        position: relative;
         flex-direction: column;
         align-items: flex-start;
         padding: 10px 20px;
