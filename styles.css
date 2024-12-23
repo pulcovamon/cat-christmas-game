@@ -213,8 +213,9 @@ canvas {
     }
 
     .bottom-button {
-        font-size: 2rem;
-        padding: 10px;
+        font-size: 2.5rem;
+        padding: 15px;
+        color: black;
     }
 
     #overlay {
