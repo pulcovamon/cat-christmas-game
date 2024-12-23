@@ -245,5 +245,6 @@ canvas {
 
     .header {
         justify-content: center;
+        display: block;
     }
 }
