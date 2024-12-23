@@ -241,4 +241,8 @@ canvas {
     .help {
         display: none;
     }
+
+    .header {
+        justify-content: center;
+    }
 }
