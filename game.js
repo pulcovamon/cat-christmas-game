@@ -277,62 +277,42 @@ for (let item of actualItems) {
  * Handle keys and control buttons
  */
 
-document.getElementById("left-button").addEventListener("mousedown", () => {
-  keys["ArrowLeft"] = true;
-});
-document.getElementById("jump-button").addEventListener("mousedown", () => {
-  keys["Space"] = true;
-});
-document.getElementById("right-button").addEventListener("mousedown", () => {
-  keys["ArrowRight"] = true;
-});
+const activeTouches = new Set();
 
-document.getElementById("left-button").addEventListener("mouseup", () => {
-  keys["ArrowLeft"] = false;
-});
-document.getElementById("jump-button").addEventListener("mouseup", () => {
-  keys["Space"] = false;
-});
-document.getElementById("right-button").addEventListener("mouseup", () => {
-  keys["ArrowRight"] = false;
-});
+function handleTouchStart(buttonKey, e) {
+  e.preventDefault();
+  activeTouches.add(e.changedTouches[0].identifier);
+  keys[buttonKey] = true;
+}
 
-document.getElementById("left-button").addEventListener("touchstart", (e) => {
+function handleTouchEnd(buttonKey, e) {
   e.preventDefault();
-  keys["ArrowLeft"] = true;
-});
-document.getElementById("jump-button").addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  keys["Space"] = true;
-});
-document.getElementById("right-button").addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  keys["ArrowRight"] = true;
-});
-
-document.getElementById("left-button").addEventListener("touchend", (e) => {
-  e.preventDefault();
-  keys["ArrowLeft"] = false;
-});
-document.getElementById("jump-button").addEventListener("touchend", (e) => {
-  e.preventDefault();
-  keys["Space"] = false;
-});
-document.getElementById("right-button").addEventListener("touchend", (e) => {
-  e.preventDefault();
-  keys["ArrowRight"] = false;
-});
-
-window.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "Space") {
-    e.preventDefault();
+  for (const touch of e.changedTouches) {
+    if (activeTouches.has(touch.identifier)) {
+      activeTouches.delete(touch.identifier);
+      keys[buttonKey] = false;
+    }
   }
-  keys[e.code] = true;
-});
+}
 
-window.addEventListener("keyup", (e) => {
-  keys[e.code] = false;
-});
+// Touch
+document.getElementById("left-button").addEventListener("touchstart", (e) => handleTouchStart("ArrowLeft", e));
+document.getElementById("jump-button").addEventListener("touchstart", (e) => handleTouchStart("Space", e));
+document.getElementById("right-button").addEventListener("touchstart", (e) => handleTouchStart("ArrowRight", e));
+
+document.getElementById("left-button").addEventListener("touchend", (e) => handleTouchEnd("ArrowLeft", e));
+document.getElementById("jump-button").addEventListener("touchend", (e) => handleTouchEnd("Space", e));
+document.getElementById("right-button").addEventListener("touchend", (e) => handleTouchEnd("ArrowRight", e));
+
+// Mouse 
+document.getElementById("left-button").addEventListener("mousedown", () => (keys["ArrowLeft"] = true));
+document.getElementById("jump-button").addEventListener("mousedown", () => (keys["Space"] = true));
+document.getElementById("right-button").addEventListener("mousedown", () => (keys["ArrowRight"] = true));
+
+document.getElementById("left-button").addEventListener("mouseup", () => (keys["ArrowLeft"] = false));
+document.getElementById("jump-button").addEventListener("mouseup", () => (keys["Space"] = false));
+document.getElementById("right-button").addEventListener("mouseup", () => (keys["ArrowRight"] = false));
+
 
 
 /**
