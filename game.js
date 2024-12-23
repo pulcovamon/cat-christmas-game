@@ -546,7 +546,11 @@ function checkWinCondition() {
  * Running game
  */
 
-document.getElementById("play-stop-button").addEventListener("click", () => {
+document.getElementById("play-stop-button-pc").addEventListener("click", () => {
+  gamePaused = !gamePaused;
+});
+
+document.getElementById("play-stop-button-phone").addEventListener("click", () => {
   gamePaused = !gamePaused;
 });
 
