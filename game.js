@@ -493,12 +493,12 @@ function displayMessage(text, wish, color) {
   platformCtx.clearRect(0, 0, canvas.width, canvas.height);
   itemsCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.font = "bold 5rem Public Pixel";
+  ctx.font = "bold 6rem Public Pixel";
   ctx.fillStyle = color;
   ctx.textAlign = "center";
   ctx.fillText(text, canvas.width / 2, canvas.height / 3);
   ctx.strokeStyle = "black";
-  ctx.lineWidth = 8;
+  ctx.lineWidth = 5;
   ctx.strokeText(text, canvas.width / 2, canvas.height / 3);
   ctx.fillText(wish, canvas.width / 2, 2 * (canvas.height / 3));
   ctx.strokeText(wish, canvas.width / 2, 2 * (canvas.height / 3));
@@ -507,7 +507,7 @@ function displayMessage(text, wish, color) {
 function checkWinCondition() {
   if (actualItems.length === 0) {
     gameRunning = false;
-    displayMessage("You Won!🎉", "Merry Christmass!🎄", "white");
+    displayMessage("You Won!🎉", "Merry X-mas!🎄", "white");
   }
 }
 
