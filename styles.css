@@ -180,8 +180,19 @@ canvas {
   font-size: 1.2rem;
 }
 
-.play-stop-button-phone {
+#play-stop-button-pc {
+    display: block;
+}
+
+#play-stop-button-phone {
     display: none;
+}
+
+.control-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 /* For mobile screens */
@@ -260,17 +271,13 @@ canvas {
         justify-content: space-between;
     }
 
-    .control-buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .play-stop-button-pc {
+    #play-stop-button-pc {
         display: none;
     }
 
-    .play-stop-button-phone {
+    #play-stop-button-phone {
         display: block;
     }
 }
+
+
