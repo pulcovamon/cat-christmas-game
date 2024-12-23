@@ -277,16 +277,22 @@ for (let item of actualItems) {
  * Handle keys and control buttons
  */
 
+/**
+ * Handle keys and control buttons
+ */
+
+// Pomocný objekt pro správu dotyků
 const activeTouches = new Set();
 
 function handleTouchStart(buttonKey, e) {
-  e.preventDefault();
+  e.preventDefault(); // Zabrání konfliktům s gesty na mobilu
   activeTouches.add(e.changedTouches[0].identifier);
   keys[buttonKey] = true;
 }
 
 function handleTouchEnd(buttonKey, e) {
   e.preventDefault();
+  // Ujistíme se, že uvolňujeme jen doteky, které byly registrovány
   for (const touch of e.changedTouches) {
     if (activeTouches.has(touch.identifier)) {
       activeTouches.delete(touch.identifier);
@@ -295,7 +301,7 @@ function handleTouchEnd(buttonKey, e) {
   }
 }
 
-// Touch
+// Touch události
 document.getElementById("left-button").addEventListener("touchstart", (e) => handleTouchStart("ArrowLeft", e));
 document.getElementById("jump-button").addEventListener("touchstart", (e) => handleTouchStart("Space", e));
 document.getElementById("right-button").addEventListener("touchstart", (e) => handleTouchStart("ArrowRight", e));
@@ -304,7 +310,7 @@ document.getElementById("left-button").addEventListener("touchend", (e) => handl
 document.getElementById("jump-button").addEventListener("touchend", (e) => handleTouchEnd("Space", e));
 document.getElementById("right-button").addEventListener("touchend", (e) => handleTouchEnd("ArrowRight", e));
 
-// Mouse 
+// Mouse události
 document.getElementById("left-button").addEventListener("mousedown", () => (keys["ArrowLeft"] = true));
 document.getElementById("jump-button").addEventListener("mousedown", () => (keys["Space"] = true));
 document.getElementById("right-button").addEventListener("mousedown", () => (keys["ArrowRight"] = true));
@@ -313,6 +319,17 @@ document.getElementById("left-button").addEventListener("mouseup", () => (keys["
 document.getElementById("jump-button").addEventListener("mouseup", () => (keys["Space"] = false));
 document.getElementById("right-button").addEventListener("mouseup", () => (keys["ArrowRight"] = false));
 
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "Space") {
+    e.preventDefault();
+  }
+  keys[e.code] = true;
+});
+
+window.addEventListener("keyup", (e) => {
+  keys[e.code] = false;
+});
 
 
 /**
