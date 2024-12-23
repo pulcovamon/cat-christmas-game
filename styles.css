@@ -103,7 +103,7 @@ body {
     bottom: 10px;
 }
 
-#play-stop-button {
+.bottom-button {
     font-size: 2.5em;
     font-family: 'Public Pixel', sans-serif;
     padding: 10px;
@@ -112,11 +112,10 @@ body {
     border-radius: 7px;
     background-color: #e63946;
 }
-
-#play-stop-button:hover {
+.bottom-button:hover {
     background-color: #f77f00;
   }
   
-#play-stop-button:active {
+.bottom-button:active {
 background-color: #d36d00;
 }

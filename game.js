@@ -186,17 +186,67 @@ for (let item of actualItems) {
   });
 }
 
+/**
+ * Handle keys and control buttons
+ */
+
+document.getElementById("left-button").addEventListener("mousedown", () => {
+  keys["ArrowLeft"] = true;
+});
+document.getElementById("jump-button").addEventListener("mousedown", () => {
+  keys["Space"] = true;
+});
+document.getElementById("right-button").addEventListener("mousedown", () => {
+  keys["ArrowRight"] = true;
+});
+
+document.getElementById("left-button").addEventListener("mouseup", () => {
+  keys["ArrowLeft"] = false;
+});
+document.getElementById("jump-button").addEventListener("mouseup", () => {
+  keys["Space"] = false;
+});
+document.getElementById("right-button").addEventListener("mouseup", () => {
+  keys["ArrowRight"] = false;
+});
+
+document.getElementById("left-button").addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  keys["ArrowLeft"] = true;
+});
+document.getElementById("jump-button").addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  keys["Space"] = true;
+});
+document.getElementById("right-button").addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  keys["ArrowRight"] = true;
+});
+
+document.getElementById("left-button").addEventListener("touchend", (e) => {
+  e.preventDefault();
+  keys["ArrowLeft"] = false;
+});
+document.getElementById("jump-button").addEventListener("touchend", (e) => {
+  e.preventDefault();
+  keys["Space"] = false;
+});
+document.getElementById("right-button").addEventListener("touchend", (e) => {
+  e.preventDefault();
+  keys["ArrowRight"] = false;
+});
+
 window.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "Space") {
     e.preventDefault();
   }
-
   keys[e.code] = true;
 });
 
 window.addEventListener("keyup", (e) => {
   keys[e.code] = false;
 });
+
 
 /**
  * Game loop
@@ -408,6 +458,10 @@ function checkWinCondition() {
  * Running game
  */
 
+document.getElementById("play-stop-button").addEventListener("click", () => {
+  gamePaused = !gamePaused;
+});
+
 function updateStats() {
   let currentTime = Date.now();
   if (currentTime - lastTime >= 1000) {
@@ -516,14 +570,6 @@ function restartGame() {
 }
 
 document.getElementById("restartButton").addEventListener("click", restartGame);
-
-/**
- * Play/Stop
- */
-
-document.getElementById("play-stop-button").addEventListener("click", () => {
-  gamePaused = !gamePaused;
-});
 
 /**
  * Run game loop
