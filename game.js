@@ -1,4 +1,36 @@
 /**
+ * Loading
+ */
+
+loading = document.getElementById("loadingOverlay");
+loading.style.display = "flex";
+
+window.addEventListener("load", () => {
+  const images = document.querySelectorAll("img");
+  let loadedImages = 0;
+
+  function onImageLoad() {
+    loadedImages++;
+    if (loadedImages === images.length) {
+      loading.style.display = "none";
+    }
+  }
+
+  images.forEach((img) => {
+    if (img.complete) {
+      onImageLoad();
+    } else {
+      img.addEventListener("load", onImageLoad);
+      img.addEventListener("error", () => {
+        console.error(`Obrázek ${img.src} se nepodařilo načíst.`);
+        onImageLoad();
+      });
+    }
+  });
+});
+
+
+/**
  * Initialization
  */
 
@@ -214,6 +246,8 @@ const player = {
 function setInitialState() {
   initializePlatforms();
   initializeItems();
+
+  backgroundCtx.drawImage(background, 0, 0, 1500, 750);
 
   SCORE = 0;
   gameRunning = true;
