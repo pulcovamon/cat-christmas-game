@@ -54,8 +54,16 @@
         <button id="restartButton" class="restart-button">🔄 Restart</button>
       </div>
     </div>
+
+    <!-- Overlay pro score a čas mimo canvas -->
+    <div id="overlay">
+      <h4 id="scoreDisplay">🎁 Score: 0</h4>
+      <h4 id="timeDisplay">⏱️ Time: 0</h4>
+    </div>
+
     <div class="game-container">
       <div style="display: none">
+        <!-- skryté obrázky -->
         <img id="background" src="images/background.png" />
         <img id="platforms" src="images/platforms-winter.png" />
         <img id="character-idle" src="images/cat-idle.png" />
@@ -81,10 +89,6 @@
         <canvas id="gameCanvas" width="1500" height="750"></canvas>
         <canvas id="hpCanvas" width="1500" height="750"></canvas>
         <canvas id="hurt" width="1500" height="750"></canvas>
-        <div class="overlay">
-          <h4 id="scoreDisplay">🎁 Score: 0</h4>
-          <h4 id="timeDisplay">⏱️ Time: 0</h4>
-        </div>
       </div>
     </div>
     <div id="play-stop-container">
