@@ -266,9 +266,7 @@ canvas {
     }
 
     #play-stop-container {
-        display: block;
-        justify-items: center;
-        justify-content: space-between;
+        flex-direction: column;
     }
 
     #play-stop-button-pc {
