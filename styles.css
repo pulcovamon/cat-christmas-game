@@ -210,7 +210,12 @@ canvas {
     .restart-button {
         padding: 10px 15px;
         font-size: 0.9rem;
-        justify-self: center;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
 
     .game-container {
