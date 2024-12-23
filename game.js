@@ -78,7 +78,6 @@ platformImages.addEventListener("load", () => {
 let groundPlatform = document.getElementById("winter-ground");
 groundPlatform.addEventListener("load", () => {
   for (let i = 0; i < 1500; i++) {
-    console.log((i % groundPlatform.width) * 3);
     if ((i % groundPlatform.width) * 3 === 0) {
       platformCtx.drawImage(
         groundPlatform,
