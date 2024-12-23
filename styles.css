@@ -202,6 +202,7 @@ canvas {
         flex-direction: column;
         align-items: flex-start;
         padding: 10px 20px;
+        padding-bottom: 60px;
     }
 
     .header h1 {
@@ -214,6 +215,7 @@ canvas {
         margin: 0;
         position: absolute;
         left: 50%;
+        top: 80px;
         -ms-transform: translate(-50%);
         transform: translate(-50%);
     }
