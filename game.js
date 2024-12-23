@@ -18,9 +18,9 @@ const platformImages = document.getElementById("platforms");
 
 const platformSets = [
   [
-    { x: 50, y: 325, width: 32, height: 9, tileX: 0, tileY: 7 },
-    { x: 200, y: 500, width: 32, height: 16, tileX: 48, tileY: 192 },
-    { x: 325, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 10, y: 200, width: 32, height: 9, tileX: 0, tileY: 7 },
+    { x: 180, y: 550, width: 32, height: 16, tileX: 48, tileY: 192 },
+    { x: 325, y: 220, width: 32, height: 9, tileX: 0, tileY: 7 },
     { x: 650, y: 450, width: 32, height: 9, tileX: 48, tileY: 7 },
     { x: 1200, y: 325, width: 48, height: 48, tileX: 96, tileY: 272 },
     { x: 500, y: 150, width: 48, height: 32, tileX: 48, tileY: 128 },
@@ -28,7 +28,8 @@ const platformSets = [
     { x: 1400, y: 225, width: 32, height: 16, tileX: 0, tileY: 192 },
     { x: 1050, y: 120, width: 48, height: 9, tileX: 0, tileY: 7 },
     { x: 1000, y: 520, width: 48, height: 16, tileX: 0, tileY: 112 },
-    { x: 80, y: 433, width: 48, height: 9, tileX: 0, tileY: 256 },
+    { x: 350, y: 433, width: 48, height: 9, tileX: 0, tileY: 256 },
+    { x: 40, y: 350, width: 32, height: 32, tileX: 48, tileY: 128 }
   ],
   [
     { x: 885, y: 286, width: 32, height: 9, tileX: 0, tileY: 7 },
@@ -355,7 +356,7 @@ function update() {
           player.x + player.width > item.x && player.x < item.x + itemWidth;
         const isColliding =
           isHorizontalColliding &&
-          player.y < item.y + itemHeight &&
+          player.y + player.height/2 < item.y + itemHeight &&
           player.y + player.height > item.y;
         if (isColliding) {
           SCORE++;
