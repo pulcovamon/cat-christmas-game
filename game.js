@@ -2,6 +2,8 @@
  * Initialization
  */
 
+const RED = "#e63946";
+
 const backgroundCanvas = document.getElementById("backgroundCanvas");
 const backgroundCtx = backgroundCanvas.getContext("2d");
 const background = document.getElementById("background");
@@ -122,6 +124,7 @@ const TIME_LIMIT = 30;
 
 let SCORE;
 let gameRunning;
+let gamePaused;
 let time;
 let lastTime;
 let keys = {};
@@ -161,6 +164,7 @@ function setInitialState() {
 
   SCORE = 0;
   gameRunning = true;
+  gamePaused = false;
   time = 0;
   lastTime = 0;
   keys = {};
@@ -418,7 +422,7 @@ function updateStats() {
   if (TIME_LIMIT - time > 5) {
     timeLimit.style = "color: white";
   } else {
-    timeLimit.style = "color: red";
+    timeLimit.style = `color: ${RED}`;
   }
 
   if (time >= TIME_LIMIT) {
@@ -440,41 +444,46 @@ const flashDuration = 70;
 function gameLoop(timestamp) {
   if (!gameRunning) return;
 
-  if (HP === 0) {
-    gameRunning = false;
-    hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
-    displayMessage("You Lost!💀", "red");
-    return;
-  }
-
-  update();
-  draw();
-  updateStats();
-  checkWinCondition();
-
-  if (timestamp - lastIcicle > ICICLE_DELAY) {
-    generateIcicle();
-    lastIcicle = FRAME;
-  }
-
-  if (timestamp - lastFrameTime > FRAME_DELAY) {
-    let maxFrame = player.dx === 0 ? 4 : 6;
-    FRAME = (FRAME + 1) % maxFrame;
+  if (gamePaused) {
     lastFrameTime = timestamp;
-  }
+  } else {
 
-  if (hurt) {
-    if (elapsed == 0) {
-      elapsed = timestamp;
-    }
-    if (timestamp - elapsed > flashDuration) {
+    if (HP === 0) {
+      gameRunning = false;
       hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
-      elapsed = 0;
-      hurt = false;
-    } else {
-      hurt = true;
-      hurtCtx.fillStyle = "rgba(255, 0, 0, 0.05)";
-      hurtCtx.fillRect(0, 0, canvas.width, canvas.height);
+      displayMessage("You Lost!💀", RED);
+      return;
+    }
+  
+    update();
+    draw();
+    updateStats();
+    checkWinCondition();
+  
+    if (timestamp - lastIcicle > ICICLE_DELAY) {
+      generateIcicle();
+      lastIcicle = FRAME;
+    }
+  
+    if (timestamp - lastFrameTime > FRAME_DELAY) {
+      let maxFrame = player.dx === 0 ? 4 : 6;
+      FRAME = (FRAME + 1) % maxFrame;
+      lastFrameTime = timestamp;
+    }
+  
+    if (hurt) {
+      if (elapsed == 0) {
+        elapsed = timestamp;
+      }
+      if (timestamp - elapsed > flashDuration) {
+        hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
+        elapsed = 0;
+        hurt = false;
+      } else {
+        hurt = true;
+        hurtCtx.fillStyle = `${RED}0D`;
+        hurtCtx.fillRect(0, 0, canvas.width, canvas.height);
+      }
     }
   }
 
@@ -507,6 +516,14 @@ function restartGame() {
 }
 
 document.getElementById("restartButton").addEventListener("click", restartGame);
+
+/**
+ * Play/Stop
+ */
+
+document.getElementById("play-stop-button").addEventListener("click", () => {
+  gamePaused = !gamePaused;
+});
 
 /**
  * Run game loop
