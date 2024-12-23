@@ -180,12 +180,12 @@ canvas {
   font-size: 1.2rem;
 }
 
-play-stop-button-phone {
+.play-stop-button-phone {
     display: none;
 }
 
 /* For mobile screens */
-@media (max-width: 800px) {
+@media (max-width: 750px) {
     .header {
         flex-direction: column;
         align-items: flex-start;
@@ -266,11 +266,11 @@ play-stop-button-phone {
         justify-content: space-between;
     }
 
-    play-stop-button-pc {
+    .play-stop-button-pc {
         display: none;
     }
 
-    play-stop-button-phone {
+    .play-stop-button-phone {
         display: block;
     }
 }
