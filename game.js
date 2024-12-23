@@ -8,10 +8,6 @@ const backgroundCanvas = document.getElementById("backgroundCanvas");
 const backgroundCtx = backgroundCanvas.getContext("2d");
 const background = document.getElementById("background");
 
-background.addEventListener("load", () => {
-  backgroundCtx.drawImage(background, 0, 0, 1500, 750);
-});
-
 const platformCanvas = document.getElementById("platformCanvas");
 const platformCtx = platformCanvas.getContext("2d");
 const platformImages = document.getElementById("platforms");
@@ -67,6 +63,10 @@ itemsCtx.shadowBlur = 20;
 itemsCtx.shadowColor = "yellow";
 
 const items = document.getElementsByClassName("items");
+
+background.addEventListener("load", () => {
+  backgroundCtx.drawImage(background, 0, 0, 1500, 750);
+});
 
 platformImages.addEventListener("load", () => {
   for (const platform of platforms) {
