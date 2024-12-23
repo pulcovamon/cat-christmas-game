@@ -484,26 +484,30 @@ function draw() {
  * Winning
  */
 
-function displayMessage(text, color) {
+function displayMessage(text, wish, color) {
   console.log("display");
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  platformCtx.clearRect(0, 0, canvas.width, canvas.height);
+  itemsCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-  ctx.font = "7rem Public Pixel";
+  ctx.font = "bold 5rem Public Pixel";
   ctx.fillStyle = color;
   ctx.textAlign = "center";
-  ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  ctx.fillText(text, canvas.width / 2, canvas.height / 3);
   ctx.strokeStyle = "black";
-  ctx.lineWidth = 5;
-  ctx.strokeText(text, canvas.width / 2, canvas.height / 2);
+  ctx.lineWidth = 8;
+  ctx.strokeText(text, canvas.width / 2, canvas.height / 3);
+  ctx.fillText(wish, canvas.width / 2, 2 * (canvas.height / 3));
+  ctx.strokeText(wish, canvas.width / 2, 2 * (canvas.height / 3));
 }
 
 function checkWinCondition() {
   if (actualItems.length === 0) {
     gameRunning = false;
-    displayMessage("You Won!🎉", "white");
+    displayMessage("You Won!🎉", "Merry Christmass!🎄", "white");
   }
 }
 
@@ -558,7 +562,7 @@ function gameLoop(timestamp) {
     if (HP === 0) {
       gameRunning = false;
       hurtCtx.clearRect(0, 0, canvas.width, canvas.height);
-      displayMessage("You Lost!💀", RED);
+      displayMessage("You Lost!💀", "Try again!🤡", RED);
       return;
     }
   
